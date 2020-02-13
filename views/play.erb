@@ -1,0 +1,68 @@
+<center>
+<h2>Play!</h2>
+<p>Welcome to Wheel of Fortune!<br><p>
+
+
+<% if $webPlaying==true %>
+    Guessing what this is: <%= $template %>
+<% end %>
+
+<br>
+
+<% if $tem.length==0 %>
+    Please enter a valid letter or a space.
+
+<% elsif $tem.length>1 %>
+    Invalid input. Please enter only one letter or a space.
+	
+<% elsif $tem.scan(/[!@#$%^&*()_+{}\[\]:;'"\/\\?><.,]/).empty? == false %>
+    Invalid input. Please do not enter symbols.
+	
+<% elsif $tem.scan(/[1234567890]/).empty? == false %>
+    Invalid input. Please do not enter number.
+
+<% elsif $webWord==true && $webPlaying==true && $tem.length!=0 %>
+    Character <%= $tem %> is in the word.
+	<% $webInput[$webTurn]= "#{$tem} is in the word."%>
+	<% $webTurn=$webTurn+1%>
+
+
+<% elsif $webWord==false && $webPlaying==true && $tem.length!=0 %>
+    Character <%= $tem %> is not in the word.
+	<% $webInput[$webTurn]= "#{$tem} is not in the word."%>
+	<% $webTurn=$webTurn+1%>
+<% end %>	
+
+<br>
+		
+<% if $webPlaying==true && $webFinish==false %>
+	You have <%= $turnsleft %> lives left.
+<% end %>
+
+<% if $webFinish==true && $webWin==true %>
+	The word is <%= $secretword %><br>
+	<br>You win!<br>
+	<% $played=$played+1 %>
+	<% $won=$won+1 %>
+	<a href= "/new">Start a New Game</a><br>
+	<a href= "/analysis">Check Your  Analysis</a>
+<% end %>
+
+<% if $webFinish==true && $webWin==false %>
+	The word is <%= $secretword %><br><br>
+	You lose.
+	<% $played=$played+1 %>
+	<br><br>
+	<a href= "/new">Start a New Game</a><br>
+	<a href= "/analysis">Check Your Analysis</a>
+<% end %>
+
+
+<% if $webPlaying==true && $webFinish==false %>
+	<form action="/form" method="post" >
+	Guess a missing charater<br>
+	<input type = "text" name="formdata">
+	<input type="submit" value="Try">
+	<input type="Reset" value="Cancel">
+<% end %>
+</center>

@@ -1,0 +1,14 @@
+<center>
+<h2>Analysis of Game.</h2>
+<% if $webFinish==false %>
+	You need to finish the game first.<br>
+<%else%>
+	You already played <%= $played %> times.<br>
+	And you won <%= $won %> times.<br>
+	Here are your last game playing steps: <br>
+	<%=$webInput%>
+<% end %>
+<br><a href= "/play">Play Game</a><br>
+<a href= "/new">Start a New Game</a><br>
+<a href= "/exit">Exit the Game and Reset played times</a><br>
+</center>
